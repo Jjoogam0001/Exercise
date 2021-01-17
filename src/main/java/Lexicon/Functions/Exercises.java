@@ -1,4 +1,16 @@
+package Lexicon.Functions;
+
 import Lexicon.Functions.data.DataStorage;
+import Lexicon.Functions.data.DataStorageImpl;
+import Lexicon.Functions.model.Gender;
+import Lexicon.Functions.model.Person;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Exercises {
     private final static DataStorage storage = DataStorage.INSTANCE;
@@ -8,8 +20,9 @@ public class Exercises {
     */
     public static void exercise1(String message){
         System.out.println(message);
-        //Write your code here
-
+        Predicate<Person> names = n -> n.getFirstName().equals("Erik");
+        String eriknames = String.valueOf(storage.findMany(names));
+        System.out.println(eriknames);
         System.out.println("----------------------");
     }
 
@@ -18,8 +31,9 @@ public class Exercises {
      */
     public static void exercise2(String message){
         System.out.println(message);
-        //Write your code here
-
+        Predicate<Person> allfemales = n -> n.getGender().equals(Gender.FEMALE);
+        String females = String.valueOf(storage.findMany(allfemales));
+        System.out.println(females);
         System.out.println("----------------------");
     }
 
@@ -29,8 +43,11 @@ public class Exercises {
     public static void exercise3(String message){
         System.out.println(message);
         //Write your code here
-
+        Predicate<Person> peoplebornafter2000 = n -> n.getBirthDate().isAfter(LocalDate.parse("2000-01-01"));
+        String twoThousandBabies = String.valueOf(storage.findMany(peoplebornafter2000));
+        System.out.println(twoThousandBabies);
         System.out.println("----------------------");
+
     }
 
     /*
@@ -38,9 +55,11 @@ public class Exercises {
      */
     public static void exercise4(String message){
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> p = emp -> emp.getId() == 123;
 
-        System.out.println("----------------------");
+
+
+
 
     }
 
@@ -50,7 +69,12 @@ public class Exercises {
      */
     public static void exercise5(String message){
         System.out.println(message);
-        //Write your code here
+
+        Predicate<Person> byId = n -> n.getId()== 456;
+        List <Person>  Person = (storage.findMany(byId));
+
+
+
 
         System.out.println("----------------------");
     }

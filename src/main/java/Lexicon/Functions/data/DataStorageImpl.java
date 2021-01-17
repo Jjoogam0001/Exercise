@@ -17,9 +17,9 @@ public class DataStorageImpl implements DataStorage {
         INSTANCE = new DataStorageImpl();
     }
 
-    private final List<Person> personList;
+    public final  List<Person> personList;
 
-    private DataStorageImpl(){
+    public DataStorageImpl(){
         personList = PersonGenerator.getInstance().generate(1000);
     }
 
