@@ -16,7 +16,6 @@ public interface DataStorage {
 
     Person findOne(Predicate<Person> filter);
 
-
     String findOneAndMapToString(Predicate<Person> filter, Function<Person, String> personToString);
 
     List<String> findManyAndMapEachToString(Predicate<Person> filter, Function<Person, String> personToString);

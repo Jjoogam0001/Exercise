@@ -1,6 +1,7 @@
 package Lexicon.Functions.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class Person {
@@ -10,13 +11,29 @@ public class Person {
     private String lastName;
     private LocalDate birthDate;
     private Gender gender;
+    private final int age;
+
+
 
     public Person(String firstName, String lastName, LocalDate birthDate, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.age = ageCounter();
         this.id = ++counter;
+    }
+    private int ageCounter(){
+        LocalDate birthDate = this.birthDate;
+        LocalDate now = LocalDate.now();
+        Period p = Period.between(birthDate, now);
+        int age = p.getYears();
+        return age;
+
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public int getId() {
@@ -90,6 +107,7 @@ public class Person {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", birthDate=").append(birthDate);
         sb.append(", gender=").append(gender);
+        sb.append(", age= ").append(age);
         sb.append('}');
         return sb.toString();
     }

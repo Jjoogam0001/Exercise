@@ -2,6 +2,7 @@ package Lexicon.Functions;
 
 
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,8 @@ public class App
         Exercises.exercise3("Exercise 3");
         Exercises.exercise4("Exercise 4");
         Exercises.exercise5("Exercise 5");
+        Exercises.exercise6("Exercise 6");
+        Exercises.exercise7("Exercise 7");
     }
 
 }

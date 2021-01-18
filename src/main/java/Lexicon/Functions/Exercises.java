@@ -1,14 +1,13 @@
 package Lexicon.Functions;
 
 import Lexicon.Functions.data.DataStorage;
-import Lexicon.Functions.data.DataStorageImpl;
 import Lexicon.Functions.model.Gender;
 import Lexicon.Functions.model.Person;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.Period;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -21,8 +20,8 @@ public class Exercises {
     public static void exercise1(String message){
         System.out.println(message);
         Predicate<Person> names = n -> n.getFirstName().equals("Erik");
-        String eriknames = String.valueOf(storage.findMany(names));
-        System.out.println(eriknames);
+        List<Person> many = storage.findMany(names);
+        System.out.println(many);
         System.out.println("----------------------");
     }
 
@@ -32,8 +31,8 @@ public class Exercises {
     public static void exercise2(String message){
         System.out.println(message);
         Predicate<Person> allfemales = n -> n.getGender().equals(Gender.FEMALE);
-        String females = String.valueOf(storage.findMany(allfemales));
-        System.out.println(females);
+        List<Person> many = storage.findMany(allfemales);
+        System.out.println(many);
         System.out.println("----------------------");
     }
 
@@ -44,8 +43,8 @@ public class Exercises {
         System.out.println(message);
         //Write your code here
         Predicate<Person> peoplebornafter2000 = n -> n.getBirthDate().isAfter(LocalDate.parse("2000-01-01"));
-        String twoThousandBabies = String.valueOf(storage.findMany(peoplebornafter2000));
-        System.out.println(twoThousandBabies);
+        List<Person> many = storage.findMany(peoplebornafter2000);
+        System.out.println(many);
         System.out.println("----------------------");
 
     }
@@ -55,13 +54,15 @@ public class Exercises {
      */
     public static void exercise4(String message){
         System.out.println(message);
-        Predicate<Person> p = emp -> emp.getId() == 123;
-
-
-
+        Predicate<Person> sinlgeperson = c -> c.getId() == 123;
+        Person one = storage.findOne(sinlgeperson);
+        System.out.println(one);
+        System.out.println("----------------------");
 
 
     }
+
+
 
     /*
         5.	Find the Person that has an id of 456 and convert to String with following content:
@@ -69,11 +70,15 @@ public class Exercises {
      */
     public static void exercise5(String message){
         System.out.println(message);
-
-        Predicate<Person> byId = n -> n.getId()== 456;
-        List <Person>  Person = (storage.findMany(byId));
-
-
+        Predicate<Person> sinlgeperson = c -> c.getId() == 456;
+        Function<Person, String> joinString = a -> {
+            String name =  a.getFirstName();
+            LocalDate dob =  a.getBirthDate();
+            String result = name.concat(String.valueOf(dob));
+            return result;
+        };
+        String oneAndMapToString = storage.findOneAndMapToString(sinlgeperson, joinString);
+        System.out.println(oneAndMapToString);
 
 
         System.out.println("----------------------");
@@ -84,7 +89,15 @@ public class Exercises {
      */
     public static void exercise6(String message){
         System.out.println(message);
-        //Write your code here
+        Predicate<Person> listofnameswithE = c-> c.getFirstName().startsWith("E")
+                && c.getLastName().startsWith("E");
+        Function<Person, String> fuc = b->{
+           String firstName =  b.getFirstName();
+           String secondName = b. getLastName();
+           return firstName.concat(" :"+secondName);
+        };
+        System.out.println(storage.findManyAndMapEachToString(listofnameswithE,fuc));
+
 
         System.out.println("----------------------");
     }
@@ -96,6 +109,17 @@ public class Exercises {
     public static void exercise7(String message){
         System.out.println(message);
         //Write your code here
+        Predicate<Person> listofnameunder10 = c-> c.getAge() < 10;
+        Function<Person, String> fuc = b->{
+            String firstName =  b.getFirstName();
+            String secondName = b. getLastName();
+            return firstName.concat(" "+secondName);
+        };
+        System.out.println(storage.findManyAndMapEachToString(listofnameunder10,fuc));
+
+
+
+
 
         System.out.println("----------------------");
     }
