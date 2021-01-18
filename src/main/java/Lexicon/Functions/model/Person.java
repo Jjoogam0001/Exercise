@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable{
     private static int counter = 0;
     private int id;
     private String firstName;
@@ -110,5 +110,13 @@ public class Person {
         sb.append(", age= ").append(age);
         sb.append('}');
         return sb.toString();
+    }
+
+
+
+    @Override
+    public int compareTo(Object o) {
+        int compareage=((Person)o).getAge();
+        return this.age - compareage;
     }
 }

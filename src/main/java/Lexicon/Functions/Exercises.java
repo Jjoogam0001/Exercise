@@ -1,15 +1,17 @@
 package Lexicon.Functions;
 
 import Lexicon.Functions.data.DataStorage;
+import Lexicon.Functions.data.DataStorageImpl;
 import Lexicon.Functions.model.Gender;
 import Lexicon.Functions.model.Person;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Exercises {
     private final static DataStorage storage = DataStorage.INSTANCE;
@@ -116,11 +118,6 @@ public class Exercises {
             return firstName.concat(" "+secondName);
         };
         System.out.println(storage.findManyAndMapEachToString(listofnameunder10,fuc));
-
-
-
-
-
         System.out.println("----------------------");
     }
 
@@ -130,7 +127,9 @@ public class Exercises {
     public static void exercise8(String message){
         System.out.println(message);
         //Write your code here
-
+        Predicate<Person> firstNamuLF = C -> C.getFirstName().equals("Ulf");
+        Consumer<Person> printAll = Person::toString;
+        storage.findAndDo(firstNamuLF,printAll);
         System.out.println("----------------------");
     }
 
@@ -140,8 +139,13 @@ public class Exercises {
     public static void exercise9(String message){
         System.out.println(message);
         //Write your code here
-
+        Predicate<Person> firstNamuLF = C -> C.getLastName().contains(C.getFirstName());
+        Consumer<Person> printAll = Person::toString;
+        storage.findAndDo(firstNamuLF,printAll);
+        System.out.println("");
         System.out.println("----------------------");
+
+
     }
 
     /*
@@ -150,18 +154,33 @@ public class Exercises {
     public static void exercise10(String message){
         System.out.println(message);
         //Write your code here
-
+        Predicate<Person> firstNamuLF = C -> {
+            String rev = " ";
+            int length = C.getLastName().length();
+            for (int i = length-1; i >= 0;i-- ){
+                rev =  rev + C.getLastName().charAt(i);
+                if (C.getLastName().equals(rev)){
+                    return true;
+                } }
+          return false;
+        };
+        Consumer<Person> printAll = p -> System.out.println(p) ;
+        storage.findAndDo(firstNamuLF,printAll);
         System.out.println("----------------------");
+
+
     }
+
+
 
     /*
         11.	Using findAndSort() find everyone whose firstName starts with A sorted by birthdate.
      */
-    public static void exercise11(String message){
+    public static void exercise11(String message) {
         System.out.println(message);
         //Write your code here
-
-        System.out.println("----------------------");
+        Comparator<Person> comparator = Comparator.comparing(c -> c.getBirthDate());
+        System.out.println(storage.findAndSort(comparator));
     }
 
     /*
@@ -183,4 +202,7 @@ public class Exercises {
 
         System.out.println("----------------------");
     }
+
+
+
 }

@@ -5,10 +5,7 @@ import Lexicon.Functions.util.PersonGenerator;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -86,22 +83,39 @@ public class DataStorageImpl implements DataStorage {
                 result.add(person);
                 personToString.apply(person);
                 String name = person.getFirstName();
-                String secondName = person.getLastName();
-                strings.add(name);
-                strings.add(secondName);
+                int age= person.getAge();
+                String combined = name.concat(" "+age + " Years");
 
-            }
-        }
-   return strings; }
+                strings.add(combined);
+            } }
+                        return strings;
+    }
 
     @Override
     public void findAndDo(Predicate<Person> filter, Consumer<Person> consumer) {
+        List<Person> result = new ArrayList<>();
+        for (Person person : personList) {
+            if (filter.test(person)) {
+                result.add(person);
+                consumer.accept(person);
+                result.forEach(System.out::println);
+            }}
+
     }
 
     @Override
     public List<Person> findAndSort(Comparator<Person> comparator) {
-        return null;
+
+        List<Person> result = new ArrayList<>();
+        for(Person person : personList){
+            if (person.getFirstName().startsWith("A")){
+                result.add(person);
+                Collections.sort(result,comparator);
+            } }
+        return result;
     }
+
+
 
     @Override
     public List<Person> findAndSort(Predicate<Person> filter, Comparator<Person> comparator) {
