@@ -25,6 +25,11 @@ public class App
         Exercises.exercise9("Exercise 9");
         Exercises.exercise10("Exercise 10");
         Exercises.exercise11("Exercise 11");
+        Exercises.exercise12("Exercise 12");
+        Exercises.exercise13("Exercise 13");
+
+
+
 
     }
 

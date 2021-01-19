@@ -164,14 +164,12 @@ public class Exercises {
                 } }
           return false;
         };
-        Consumer<Person> printAll = p -> System.out.println(p) ;
+        Consumer<Person> printAll = System.out::println;
         storage.findAndDo(firstNamuLF,printAll);
         System.out.println("----------------------");
 
 
     }
-
-
 
     /*
         11.	Using findAndSort() find everyone whose firstName starts with A sorted by birthdate.
@@ -189,6 +187,9 @@ public class Exercises {
     public static void exercise12(String message){
         System.out.println(message);
         //Write your code here
+        Predicate<Person>list = p->p.getBirthDate().isBefore(LocalDate.parse("1950-01-01"));
+        Comparator<Person> comparator = Comparator.reverseOrder();
+        System.out.println(storage.findAndSort(list,comparator));
 
         System.out.println("----------------------");
     }
@@ -199,8 +200,12 @@ public class Exercises {
     public static void exercise13(String message){
         System.out.println(message);
         //Write your code here
-
+        Predicate<Person>list = p->p.getBirthDate().isAfter(LocalDate.parse("1700-01-01"));
+        Comparator<Person> comparator = Comparator.comparing(Person::getLastName).thenComparing(Person::getFirstName).thenComparing(Person::getBirthDate);
+        System.out.println(storage.findAndSort(list,comparator));
         System.out.println("----------------------");
+
+
     }
 
 
