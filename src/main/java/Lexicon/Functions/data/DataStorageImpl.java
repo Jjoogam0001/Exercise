@@ -100,7 +100,9 @@ public class DataStorageImpl implements DataStorage {
             if (filter.test(person)) {
                 result.add(person);
                 consumer.accept(person);
-                result.forEach(System.out::println);
+              for (int i = 0 ; i < result.size(); i++){
+                  System.out.println(result.get(i));
+              }
             }}
 
     }

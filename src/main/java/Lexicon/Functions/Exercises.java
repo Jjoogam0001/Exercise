@@ -154,17 +154,9 @@ public class Exercises {
     public static void exercise10(String message){
         System.out.println(message);
         //Write your code here
-        Predicate<Person> firstNamuLF = C -> {
-            String rev = " ";
-            int length = C.getLastName().length();
-            for (int i = length-1; i >= 0;i-- ){
-                rev =  rev + C.getLastName().charAt(i);
-                if (C.getLastName().equals(rev)){
-                    return true;
-                } }
-          return false;
-        };
-        Consumer<Person> printAll = System.out::println;
+        Predicate<Person> firstNamuLF = C -> checkpalidrome(C.getFirstName());
+
+        Consumer<Person> printAll = p -> System.out.println(p);
         storage.findAndDo(firstNamuLF,printAll);
         System.out.println("----------------------");
 
@@ -206,6 +198,17 @@ public class Exercises {
         System.out.println("----------------------");
 
 
+    }
+
+    private static boolean checkpalidrome(String name ){
+        int length = name.length();
+        String reverse = " ";
+        for (int i = length-1;i < 0; i-- )
+            reverse = reverse + name.charAt(i);
+          if (name.equals(reverse)){
+              return  true;
+          }else
+              return false;
     }
 
 
